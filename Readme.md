@@ -1,7 +1,7 @@
-##V9 files reference
+## V9 files reference
 Lists all files present in this version and some relevant documentation about it
 
-###Filter´s table
+### Filter´s table
 | File path | dataType | Tests | Supported Input format | Example |
 |--------|--------|--------|--------|--------|
 |antivirus\esmc-eset.conf|antivirus-esmc-eset|Local, SIEM|Syslog+JSON|679 <12>1 2022-04-11T10:41:05.300Z esmc ERAServer 11804 - - {"event_type":"FirewallAggregated_Event","ipv4":"x.x.x.x","hostname":"archivos","source_uuid":"c252c742-22e4-4b4c-af89-6216dc200276","occured":"11-Apr-2022 10:45:38","severity":"Warning",...}|
@@ -38,6 +38,6 @@ Lists all files present in this version and some relevant documentation about it
 |windows\windows-events.conf|wineventlog|SIEM|JSON by beats|-|
 |windows\windows-iis.conf|iis|-|JSON by beats|-|
 
-####Notes:
+#### Notes:
 1. (Pipe) is used in CEF examples instead of | character because have conflicts with markdow´s table
 2. About filebeat modules, the **Supported Input format** column shows the input format expected by filebeat for every fileset in the module configured. The filter always must receive a single JSON from filebeats
