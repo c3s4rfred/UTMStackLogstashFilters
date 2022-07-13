@@ -1,0 +1,451 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Automatic V9 generation
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Job definition
+jobs:
+  # This workflow contains a single job called "Update-v9"
+  Update-v9:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Checkout changes, then switch branch to v9, config git env, 
+    # checkout a file (for every filter), add to git (for every filter), commit and push to v9
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - uses: actions/checkout@v3
+        with:
+          ref: v9
+
+      - name: Config ENV
+        run: |
+          git config user.email "v9Action@gmail.com"
+          git config user.name "v9Action"
+      # 1. Update filters from antivirus folder
+      # esmc-eset.conf
+      - name: Update esmc-eset.conf
+        id: update1
+        run: |
+          git checkout origin/master -- 'antivirus/esmc-eset.conf'
+
+      - name: Add esmc-eset.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'antivirus/esmc-eset.conf'
+        if: always() && (steps.update1.outcome != 'failure')
+
+      # kaspersky.conf
+      - name: Update kaspersky.conf
+        id: update2
+        run: |
+          git checkout origin/master -- 'antivirus/kaspersky.conf'
+
+      - name: Add kaspersky.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'antivirus/kaspersky.conf'
+        if: always() && (steps.update2.outcome != 'failure')
+
+      # sentinel-one.conf
+      - name: Update sentinel-one.conf
+        id: update3
+        run: |
+          git checkout origin/master -- 'antivirus/sentinel-one.conf'
+
+      - name: Add sentinel-one.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'antivirus/sentinel-one.conf'
+        if: always() && (steps.update3.outcome != 'failure')
+
+      # sophos_av.conf
+      - name: Update sophos_av.conf
+        id: update4
+        run: |
+          git checkout origin/master -- 'antivirus/sophos_av.conf'
+
+      - name: Add sophos_av.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'antivirus/sophos_av.conf'
+        if: always() && (steps.update4.outcome != 'failure')
+
+      # 2. Update filters from aws folder
+      # aws.conf
+      - name: Update aws.conf
+        id: update5
+        run: |
+          git checkout origin/master -- 'aws/aws.conf'
+
+      - name: Add aws.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'aws/aws.conf'
+        if: always() && (steps.update5.outcome != 'failure')
+
+      # 3. Update filters from azure folder
+      # azure-eventhub.conf
+      - name: Update azure-eventhub.conf
+        id: update6
+        run: |
+          git checkout origin/master -- 'azure/azure-eventhub.conf'
+
+      - name: Add azure-eventhub.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'azure/azure-eventhub.conf'
+        if: always() && (steps.update6.outcome != 'failure')
+
+      # 4. Update filters from cisco folder
+      # asa.conf
+      - name: Update asa.conf
+        id: update7
+        run: |
+          git checkout origin/master -- 'cisco/asa.conf'
+
+      - name: Add asa.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'cisco/asa.conf'
+        if: always() && (steps.update7.outcome != 'failure')
+
+      # firepower.conf
+      - name: Update firepower.conf
+        id: update8
+        run: |
+          git checkout origin/master -- 'cisco/firepower.conf'
+
+      - name: Add firepower.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'cisco/firepower.conf'
+        if: always() && (steps.update8.outcome != 'failure')
+
+      # meraki.conf
+      - name: Update meraki.conf
+        id: update9
+        run: |
+          git checkout origin/master -- 'cisco/meraki.conf'
+
+      - name: Add meraki.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'cisco/meraki.conf'
+        if: always() && (steps.update9.outcome != 'failure')
+
+      # 5. Update filters from deceptivebytes folder
+      # deceptive-bytes.conf
+      - name: Update deceptive-bytes.conf
+        id: update10
+        run: |
+          git checkout origin/master -- 'deceptivebytes/deceptive-bytes.conf'
+
+      - name: Add deceptive-bytes.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'deceptivebytes/deceptive-bytes.conf'
+        if: always() && (steps.update10.outcome != 'failure')
+
+      # 6. Update filters from filebeat folder
+      # apache_module.conf
+      - name: Update apache_module.conf
+        id: update11
+        run: |
+          git checkout origin/master -- 'filebeat/apache_module.conf'
+
+      - name: Add apache_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/apache_module.conf'
+        if: always() && (steps.update11.outcome != 'failure')
+
+      # auditd_module.conf
+      - name: Update auditd_module.conf
+        id: update12
+        run: |
+          git checkout origin/master -- 'filebeat/auditd_module.conf'
+
+      - name: Add auditd_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/auditd_module.conf'
+        if: always() && (steps.update12.outcome != 'failure')
+
+      # elasticsearch_module.conf
+      - name: Update elasticsearch_module.conf
+        id: update13
+        run: |
+          git checkout origin/master -- 'filebeat/elasticsearch_module.conf'
+
+      - name: Add elasticsearch_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/elasticsearch_module.conf'
+        if: always() && (steps.update13.outcome != 'failure')
+
+      # kafka_module.conf
+      - name: Update kafka_module.conf
+        id: update14
+        run: |
+          git checkout origin/master -- 'filebeat/kafka_module.conf'
+
+      - name: Add kafka_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/kafka_module.conf'
+        if: always() && (steps.update14.outcome != 'failure')
+
+      # kibana_module.conf
+      - name: Update kibana_module.conf
+        id: update15
+        run: |
+          git checkout origin/master -- 'filebeat/kibana_module.conf'
+
+      - name: Add kibana_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/kibana_module.conf'
+        if: always() && (steps.update15.outcome != 'failure')
+
+      # logstash_module.conf
+      - name: Update logstash_module.conf
+        id: update16
+        run: |
+          git checkout origin/master -- 'filebeat/logstash_module.conf'
+
+      - name: Add logstash_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/logstash_module.conf'
+        if: always() && (steps.update16.outcome != 'failure')
+
+      # mongodb_module.conf
+      - name: Update mongodb_module.conf
+        id: update17
+        run: |
+          git checkout origin/master -- 'filebeat/mongodb_module.conf'
+
+      - name: Add mongodb_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/mongodb_module.conf'
+        if: always() && (steps.update17.outcome != 'failure')
+
+      # mysql_module.conf
+      - name: Update mysql_module.conf
+        id: update18
+        run: |
+          git checkout origin/master -- 'filebeat/mysql_module.conf'
+
+      - name: Add mysql_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/mysql_module.conf'
+        if: always() && (steps.update18.outcome != 'failure')
+
+      # nginx_module.conf
+      - name: Update nginx_module.conf
+        id: update19
+        run: |
+          git checkout origin/master -- 'filebeat/nginx_module.conf'
+
+      - name: Add nginx_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/nginx_module.conf'
+        if: always() && (steps.update19.outcome != 'failure')
+
+      # osquery_module.conf
+      - name: Update osquery_module.conf
+        id: update20
+        run: |
+          git checkout origin/master -- 'filebeat/osquery_module.conf'
+
+      - name: Add osquery_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/osquery_module.conf'
+        if: always() && (steps.update20.outcome != 'failure')
+
+      # postgresql_module.conf
+      - name: Update postgresql_module.conf
+        id: update21
+        run: |
+          git checkout origin/master -- 'filebeat/postgresql_module.conf'
+
+      - name: Add postgresql_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/postgresql_module.conf'
+        if: always() && (steps.update21.outcome != 'failure')
+
+      # redis_module.conf
+      - name: Update redis_module.conf
+        id: update22
+        run: |
+          git checkout origin/master -- 'filebeat/redis_module.conf'
+
+      - name: Add redis_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/redis_module.conf'
+        if: always() && (steps.update22.outcome != 'failure')
+
+      # system_linux_module.conf
+      - name: Update system_linux_module.conf
+        id: update23
+        run: |
+          git checkout origin/master -- 'filebeat/system_linux_module.conf'
+
+      - name: Add system_linux_module.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'filebeat/system_linux_module.conf'
+        if: always() && (steps.update23.outcome != 'failure')
+
+      # 7. Update filters from fortinet folder
+      # fortinet.conf
+      - name: Update fortinet.conf
+        id: update24
+        run: |
+          git checkout origin/master -- 'fortinet/fortinet.conf'
+
+      - name: Add fortinet.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'fortinet/fortinet.conf'
+        if: always() && (steps.update24.outcome != 'failure')
+
+      # 8. Update filters from google folder
+      # google-logstash.conf
+      - name: Update google-logstash.conf
+        id: update25
+        run: |
+          git checkout origin/master -- 'google/google-logstash.conf'
+
+      - name: Add google-logstash.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'google/google-logstash.conf'
+        if: always() && (steps.update25.outcome != 'failure')
+
+      # 9. Update filters from hids folder
+      # hids-wazuh.conf
+      - name: Update hids-wazuh.conf
+        id: update26
+        run: |
+          git checkout origin/master -- 'hids/hids-wazuh.conf'
+
+      - name: Add hids-wazuh.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'hids/hids-wazuh.conf'
+        if: always() && (steps.update26.outcome != 'failure')
+
+      # 10. Update filters from netflow folder
+      # netflow.conf
+      - name: Update netflow.conf
+        id: update27
+        run: |
+          git checkout origin/master -- 'netflow/netflow.conf'
+
+      - name: Add netflow.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'netflow/netflow.conf'
+        if: always() && (steps.update27.outcome != 'failure')
+
+      # 11. Update filters from nids folder
+      # nids-ids.conf
+      - name: Update nids-ids.conf
+        id: update28
+        run: |
+          git checkout origin/master -- 'nids/nids-ids.conf'
+
+      - name: Add nids-ids.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'nids/nids-ids.conf'
+        if: always() && (steps.update28.outcome != 'failure')
+
+      # 12. Update filters from office365 folder
+      # o365-all.conf
+      - name: Update o365-all.conf
+        id: update29
+        run: |
+          git checkout origin/master -- 'office365/o365-all.conf'
+
+      - name: Add o365-all.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'office365/o365-all.conf'
+        if: always() && (steps.update29.outcome != 'failure')
+
+      # 13. Update filters from sophos folder
+      # sophos_xg_firewall.conf
+      - name: Update sophos_xg_firewall.conf
+        id: update30
+        run: |
+          git checkout origin/master -- 'sophos/sophos_xg_firewall.conf'
+
+      - name: Add sophos_xg_firewall.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'sophos/sophos_xg_firewall.conf'
+        if: always() && (steps.update30.outcome != 'failure')
+
+      # 14. Update filters from vmware folder
+      # vmware-esxi.conf
+      - name: Update vmware-esxi.conf
+        id: update31
+        run: |
+          git checkout origin/master -- 'vmware/vmware-esxi.conf'
+
+      - name: Add vmware-esxi.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'vmware/vmware-esxi.conf'
+        if: always() && (steps.update31.outcome != 'failure')
+
+      # 15. Update filters from windows folder
+      # windows-events.conf
+      - name: Update windows-events.conf
+        id: update32
+        run: |
+          git checkout origin/master -- 'windows/windows-events.conf'
+
+      - name: Add windows-events.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'windows/windows-events.conf'
+        if: always() && (steps.update32.outcome != 'failure')
+
+      # windows-iis.conf
+      - name: Update windows-iis.conf
+        id: update33
+        run: |
+          git checkout origin/master -- 'windows/windows-iis.conf'
+
+      - name: Add windows-iis.conf
+        run: |
+          echo "******** Add file ********"
+          git add 'windows/windows-iis.conf'
+        if: always() && (steps.update33.outcome != 'failure')
+   
+      - name: Final step, commit and push
+        run: |
+          git commit -m "Auto updating v9"
+          git push
+        if: always()
+
