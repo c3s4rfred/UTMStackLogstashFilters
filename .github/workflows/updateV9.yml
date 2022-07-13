@@ -1,4 +1,8 @@
-# This is a basic workflow to help you get started with Actions
+# Description: This workflow is for update V9 filters branch, will update all filters in v9 branch, 
+# but filter deletion must be done manually on the v9 branch.
+# Launch mode: automatic (push on master) or manual in the Actions tab
+# Important: After deletion or addition of any filter in v9 branch, the workflow must be updated with the change 
+# and launched manually to set v9 up to date.
 
 name: Automatic V9 generation
 
@@ -6,7 +10,7 @@ name: Automatic V9 generation
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -448,4 +452,3 @@ jobs:
           git commit -m "Auto updating v9"
           git push
         if: always()
-
