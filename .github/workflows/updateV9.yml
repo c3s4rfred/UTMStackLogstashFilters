@@ -1,8 +1,9 @@
 # Description: This workflow is for update V9 filters branch, will update all filters in v9 branch, 
 # but filter deletion must be done manually on the v9 branch.
 # Launch mode: automatic (push on master) or manual in the Actions tab
-# Important: After deletion or addition of any filter in v9 branch, the workflow must be updated with the change 
-# and launched manually to set v9 up to date.
+# Important: After deletion, name-path update or addition of any filter in v9 branch, the workflow must be updated 
+# with the change and launched manually to set v9 up to date.
+# CRITICAL: Do not merge changes made in v9 with master, this causes filter deletion in master
 
 name: Automatic V9 generation
 
@@ -11,6 +12,40 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ master ]
+    paths:
+      - 'antivirus/esmc-eset.conf'
+      - 'antivirus/kaspersky.conf'
+      - 'antivirus/sentinel-one.conf'
+      - 'antivirus/sophos_av.conf'
+      - 'aws/aws.conf'
+      - 'azure/azure-eventhub.conf'
+      - 'cisco/asa.conf'
+      - 'cisco/firepower.conf'
+      - 'cisco/meraki.conf'
+      - 'deceptivebytes/deceptive-bytes.conf'
+      - 'filebeat/apache_module.conf'
+      - 'filebeat/auditd_module.conf'
+      - 'filebeat/elasticsearch_module.conf'
+      - 'filebeat/kafka_module.conf'
+      - 'filebeat/kibana_module.conf'
+      - 'filebeat/logstash_module.conf'
+      - 'filebeat/mongodb_module.conf'
+      - 'filebeat/mysql_module.conf'
+      - 'filebeat/nginx_module.conf'
+      - 'filebeat/osquery_module.conf'
+      - 'filebeat/postgresql_module.conf'
+      - 'filebeat/redis_module.conf'
+      - 'filebeat/system_linux_module.conf'
+      - 'fortinet/fortinet.conf'
+      - 'google/google-logstash.conf'
+      - 'hids/hids-wazuh.conf'
+      - 'netflow/netflow.conf'
+      - 'nids/nids-ids.conf'
+      - 'office365/o365-all.conf'
+      - 'sophos/sophos_xg_firewall.conf'
+      - 'vmware/vmware-esxi.conf'
+      - 'windows/windows-events.conf'
+      - 'windows/windows-iis.conf'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
