@@ -22,7 +22,6 @@ on:
       - 'cisco/asa.conf'
       - 'cisco/firepower.conf'
       - 'cisco/meraki.conf'
-      - 'deceptivebytes/deceptive-bytes.conf'
       - 'filebeat/apache_module.conf'
       - 'filebeat/auditd_module.conf'
       - 'filebeat/elasticsearch_module.conf'
@@ -184,17 +183,7 @@ jobs:
         if: always() && (steps.update9.outcome != 'failure')
 
       # 5. Update filters from deceptivebytes folder
-      # deceptive-bytes.conf
-      - name: Update deceptive-bytes.conf
-        id: update10
-        run: |
-          git checkout origin/master -- 'deceptivebytes/deceptive-bytes.conf'
-
-      - name: Add deceptive-bytes.conf
-        run: |
-          echo "******** Add file ********"
-          git add 'deceptivebytes/deceptive-bytes.conf'
-        if: always() && (steps.update10.outcome != 'failure')
+      # deceptive-bytes.conf (Deleted)
 
       # 6. Update filters from filebeat folder
       # apache_module.conf
